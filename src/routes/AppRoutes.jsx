@@ -10,12 +10,9 @@ import Register from "../pages/user/Register";
 import Profile from "../pages/user/Profile";
 import Navbar from "../components/Navbar";
 import Layout from "../components/Layout";
+import ForgetPassword from "../pages/user/Forget-Password";
+import Confirmation from "../pages/user/Confirmation";
 
-// Admin pages
-// import Dashboard from "../pages/admin/Dashboard";
-// import Users from "../pages/admin/Users";
-// import Settings from "../pages/admin/Settings";
-// import Reports from "../pages/admin/Reports";
 
 export default function AppRoutes() {
   return (
@@ -30,13 +27,9 @@ export default function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
+        <Route  path="/forgot-password" element={<ForgetPassword/>}/>
+        <Route  path="/confirmation" element={<Confirmation/>}/>
         </Route>
-
-        {/* Admin Routes */}
-        {/* <Route path="/admin/dashboard" element={<Dashboard />} />
-        <Route path="/admin/users" element={<Users />} />
-        <Route path="/admin/settings" element={<Settings />} />
-        <Route path="/admin/reports" element={<Reports />} /> */}
 
         {/* 404 Fallback (Optional) */}
         <Route path="*" element={<h1>404 - Page Not Found</h1>} />

@@ -192,56 +192,28 @@ export default function Navbar() {
             component={Link}
             to="/login"
             sx={{
+              bgcolor: theme.palette.secondary.main,
+              backgroundImage: 'linear-gradient(45deg, #FFCAD4 30%, #C2185B 90%)',
               color: '#262626',
               textTransform: 'none',
               fontSize: { sm: '0.9rem', md: '1rem', lg: '1.1rem' },
               fontWeight: location.pathname === '/login' ? 700 : 600,
-              border: '2px solid #fff',
               borderRadius: 40,
               px: { sm: 2, md: 3 },
               py: 0.8,
               transition: 'all 0.3s ease',
               whiteSpace: 'nowrap',
               '&:hover': { 
-                bgcolor: 'rgba(255, 255, 255, 0.25)', 
-                color: '#FFCAD4', 
+                bgcolor: theme.palette.secondary.dark,
+                color: '#262626', 
                 transform: 'scale(1.08)',
-                boxShadow: '0 0 12px rgba(255, 202, 212, 0.8)',
+                boxShadow: '0 8px 22px rgba(255, 202, 212, 0.9)',
               },
             }}
           >
             Login
             {location.pathname === '/login' && (
               <FavoriteIcon sx={{ ml: 0.5, fontSize: { sm: 16, md: 18 }, animation: 'bounce 1.5s infinite', color: '#FFCAD4' }} />
-            )}
-          </Button>
-          <Button
-            component={Link}
-            to="/register"
-            variant="contained"
-            sx={{
-              bgcolor: theme.palette.secondary.main,
-              backgroundImage: 'linear-gradient(45deg, #FFCAD4 30%, #C2185B 90%)',
-              color: '#262626',
-              textTransform: 'none',
-              fontSize: { sm: '0.9rem', md: '1rem', lg: '1.1rem' },
-              fontWeight: location.pathname === '/register' ? 700 : 600,
-              borderRadius: 40,
-              px: { sm: 3, md: 4 },
-              py: 0.8,
-              boxShadow: '0 6px 18px rgba(255, 202, 212, 0.8)',
-              transition: 'all 0.3s ease',
-              whiteSpace: 'nowrap',
-              '&:hover': { 
-                bgcolor: theme.palette.secondary.dark, 
-                boxShadow: '0 8px 22px rgba(255, 202, 212, 0.9)',
-                transform: 'scale(1.08)',
-              },
-            }}
-          >
-            Register
-            {location.pathname === '/register' && (
-              <FavoriteIcon sx={{ ml: 0.5, fontSize: { sm: 16, md: 18 }, animation: 'bounce 1.5s infinite', color: '#fff' }} />
             )}
           </Button>
         </Box>

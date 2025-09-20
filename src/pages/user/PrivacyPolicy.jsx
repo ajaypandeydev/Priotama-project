@@ -1,587 +1,523 @@
 import React from "react";
-import {
-  Box,
-  Container,
-  Typography,
-  Grid,
-  Breadcrumbs,
-  Link,
-} from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
-import { useInView } from "react-intersection-observer";
-// import image1 from 
+import { Box, Typography, Container } from "@mui/material";
+import privacyImg from "../../../public/assets/privacy.png";
 
 function PrivacyPolicy() {
-  // Define useInView hooks for each section
-  const { ref: heroRef, inView: heroInView } = useInView({ threshold: 0.2, triggerOnce: true });
-  const { ref: ref1, inView: inView1 } = useInView({ threshold: 0.2, triggerOnce: true });
-  const { ref: ref2, inView: inView2 } = useInView({ threshold: 0.2, triggerOnce: true });
-  const { ref: ref3, inView: inView3 } = useInView({ threshold: 0.2, triggerOnce: true });
-  const { ref: ref4, inView: inView4 } = useInView({ threshold: 0.2, triggerOnce: true });
-  const { ref: ref5, inView: inView5 } = useInView({ threshold: 0.2, triggerOnce: true });
-
   return (
-    <Box>
+    <Box sx={{ minHeight: "100vh", position: "relative", overflowX: "hidden" }}>
+      {/* Background Image */}
+      <Box
+        component="img"
+        src={privacyImg}
+        alt="background"
+        sx={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          opacity: 0.3,
+          zIndex: -1,
+        }}
+      />
+
       {/* Hero Section */}
       <Box
         sx={{
-          height: "280px",
-          backgroundImage: "url('../../../public/assets/image1.png')",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
+          pt: "100px",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
           alignItems: "center",
-          color: "white",
+          justifyContent: "center",
+          height: "60vh",
           textAlign: "center",
         }}
-        ref={heroRef}
       >
-        {/* Breadcrumbs */}
-        <Breadcrumbs
-          aria-label="breadcrumb"
-          sx={{
-            color: "white",
-            mb: 2,
-            "& a": { color: "white", textDecoration: "none" },
-            "& a:hover": { textDecoration: "underline" },
-            animation: heroInView ? "fadeInUp 1s ease-out forwards" : "none",
-            willChange: "transform, opacity",
-            "@keyframes fadeInUp": {
-              "0%": { transform: "translateY(20px)", opacity: 0 },
-              "100%": { transform: "translateY(0)", opacity: 1 },
-            },
-          }}
-        >
-          <Link component={RouterLink} to="/">Home</Link>
-          <Typography
-            color="white"
-            sx={{
-              animation: heroInView ? "fadeInUp 1s ease-out forwards 0.1s" : "none",
-              willChange: "transform, opacity",
-              "@keyframes fadeInUp": {
-                "0%": { transform: "translateY(20px)", opacity: 0 },
-                "100%": { transform: "translateY(0)", opacity: 1 },
-              },
-            }}
-          >
-            Privacy Policy
-          </Typography>
-        </Breadcrumbs>
+        <Typography variant="h3" fontWeight="bold">
+          <span style={{ color: "#F75270" }}>Welcome to the</span>{" "}
+          <span style={{ color: "#262626" }}>Privacy Policy Page</span>
+        </Typography>
 
-        {/* Page Title */}
         <Typography
-          variant="h3"
-          sx={{
-            fontWeight: "bold",
-            textShadow: "2px 2px 6px rgba(0,0,0,0.6)",
-            animation: heroInView ? "fadeInUp 1s ease-out forwards 0.2s" : "none",
-            willChange: "transform, opacity",
-            "@keyframes fadeInUp": {
-              "0%": { transform: "translateY(20px)", opacity: 0 },
-              "100%": { transform: "translateY(0)", opacity: 1 },
-            },
-          }}
+          variant="h6"
+          sx={{ mt: 2, fontWeight: "bold", color: "#5AA7D1" }}
         >
           Privacy Policy
         </Typography>
       </Box>
 
-      {/* Main Content */}
-      <Container maxWidth="lg" sx={{ py: 8 }}>
-        {/* Section 1: Collection and Use of Information */}
-        <Grid container spacing={6} alignItems="center" sx={{ mb: 10 }} ref={ref1}>
-          <Grid item xs={12} md={6}>
-            <Box
-              component="img"
-              src="/public/assets/image3.jpg"
-              alt="collection"
-              sx={{
-                width: "500px",
-                height: "300px",
-                maxWidth: "80%",
-                objectFit: "cover",
-                borderRadius: 3,
-                boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                animation: inView1 ? "slideInFromRight 1s ease-out forwards" : "none",
-                willChange: "transform, opacity",
-                "&:hover": { transform: "scale(1.02)" },
-                "@keyframes slideInFromRight": {
-                  "0%": { transform: "translateX(100%)", opacity: 0 },
-                  "100%": { transform: "translateX(0)", opacity: 1 },
-                },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Typography
-              variant="h5"
-              gutterBottom
-              sx={{
-                fontWeight: "bold",
-                animation: inView1 ? "fadeInUp 1s ease-out forwards 0.2s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              Collection and Use of Information
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                mb: 2,
-                animation: inView1 ? "fadeInUp 1s ease-out forwards 0.3s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              At <b>Priotama.com</b>, we collect your information for specific
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                mb: 2,
-                animation: inView1 ? "fadeInUp 1s ease-out forwards 0.4s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              purposes only. This includes communication, delivering requested 
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                mb: 2,
-                animation: inView1 ? "fadeInUp 1s ease-out forwards 0.5s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              services, and targeted advertising. We ensure compliance
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                mb: 2,
-                animation: inView1 ? "fadeInUp 1s ease-out forwards 0.6s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              with legal requirements using your data.
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                animation: inView1 ? "fadeInUp 1s ease-out forwards 0.7s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              Your information helps us protect users during emergencies.
-            </Typography>
-          </Grid>
-        </Grid>
+      {/* Section 1 - Gradient Background */}
+      <Box
+        sx={{
+          background: "linear-gradient(to right, #ffe4ec, #e1f5ff)",
+          py: 2,
+          width: "100%",
+        }}
+      >
+        <Typography variant="h4" fontWeight="bold" textAlign="center" mt={2}>
+          Priotama Privacy Policy
+        </Typography>
+        <Box
+          sx={{
+            width: 60,
+            height: 4,
+            bgcolor: "#C2185B",
+            mx: "auto",
+            borderRadius: 2,
+            mt: 1,
+          }}
+        />
 
-        {/* Section 2: Personal Data Requests and User Registration */}
-        <Grid
-          container
-          spacing={6}
-          alignItems="center"
-          sx={{ mb: 10, flexDirection: { xs: "column-reverse", md: "row" } }}
-          ref={ref2}
+        {/* Policy Content */}
+        <Box sx={{ width: "100%", mt:1, px: { xs: 2, sm: 6, md: 12 } }}>
+          <Typography paragraph>
+            When you visit any website, you are providing a range of personal
+            information about your visit to the operators of the website,
+            depending on the actions you take. This is also the case with{" "}
+            <span style={{ color: "#C2185B", fontWeight: "bold" }}>
+              Priotama
+            </span>
+            . You should always understand the privacy policies on any website
+            when supplying information during your use of the website. You
+            should always ask for a copy of the privacy policy if the website
+            does not make the information available to you.
+          </Typography>
+
+          <Typography paragraph>
+            We will only use the personal data you send to us during your visits
+            for the purposes of internal tracking. This includes making{" "}
+            <span style={{ color: "#C2185B", fontWeight: "bold" }}>
+              Priotama
+            </span>{" "}
+            and other websites more effective and responding appropriately to
+            your requests. We will never sell your personal data to a third
+            party, except as may be required by law.
+          </Typography>
+
+          <Typography paragraph fontWeight="bold">
+            COLLECTION AND USE OF INFORMATION
+          </Typography>
+
+          <Typography paragraph>
+            <span style={{ color: "#C2185B", fontWeight: "bold" }}>
+              Priotama
+            </span>{" "}
+            will only collect, use, distribute, or otherwise handle information
+            about you for the purposes outlined in this Privacy Policy, which
+            include:
+          </Typography>
+
+          <Typography component="ul" sx={{ pl: 3,}}>
+            <li>
+              To communicate with you about{" "}
+              <span style={{ color: "#C2185B", fontWeight: "bold" }}>
+                Priotama
+              </span>{" "}
+              services;
+            </li>
+            <li>
+              To advertise the services of{" "}
+              <span style={{ color: "#C2185B", fontWeight: "bold" }}>
+                Priotama
+              </span>{" "}
+              partners;
+            </li>
+            <li>To provide services that you have requested;</li>
+            <li>To comply with any legal requirements or court orders;</li>
+            <li>To safeguard a member in the event of an emergency;</li>
+          </Typography>
+        </Box>
+      </Box>
+
+      {/* Section 2 - White Background (Personal Data Requests) */}
+      <Box
+        sx={{
+          width: "100%",
+          py: 3,
+          px: { xs: 2, sm: 6, md: 12, background: "#fff" },
+        }}
+      >
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          textAlign="center"
+          color="#262626"
+          gutterBottom
         >
-          <Grid item xs={12} md={6}>
-            <Typography
-              variant="h5"
-              gutterBottom
-              sx={{
-                fontWeight: "bold",
-                animation: inView2 ? "fadeInUp 1s ease-out forwards 0.2s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              Personal Data Requests and User Registration
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                mb: 2,
-                animation: inView2 ? "fadeInUp 1s ease-out forwards 0.3s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              We collect only the personal data you provide voluntarily on <b>Priotama.com</b>.
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                mb: 2,
-                animation: inView2 ? "fadeInUp 1s ease-out forwards 0.4s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              Registration may include your name, email, username, and profile details.
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                animation: inView2 ? "fadeInUp 1s ease-out forwards 0.5s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              Some data may be publicly visible if you enable it in your account.
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Box
-              component="img"
-              src="/public/assets/image2.jpg"
-              alt="registration"
-              sx={{
-                 width: "500px",
-                height: "300px",
-                maxWidth: "80%",
-                objectFit: "cover",
-                borderRadius: 3,
-                boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                animation: inView2 ? "slideInFromRight 1s ease-out forwards" : "none",
-                willChange: "transform, opacity",
-                "&:hover": { transform: "scale(1.02)" },
-                "@keyframes slideInFromRight": {
-                  "0%": { transform: "translateX(100%)", opacity: 0 },
-                  "100%": { transform: "translateX(0)", opacity: 1 },
-                },
-              }}
-            />
-          </Grid>
-        </Grid>
+          Personal Data Requests & User Registration
+        </Typography>
 
-        {/* Section 3: Personal Data You Provide */}
-        <Grid container spacing={6} alignItems="center" sx={{ mb: 10 }} ref={ref3}>
-          <Grid item xs={12} md={6}>
-            <Box
-              component="img"
-              src="/public/assets/image4.jpg"
-              alt="account data"
-              sx={{
-                 width: "500px",
-                height: "300px",
-                maxWidth: "80%",
-                objectFit: "cover",
-                borderRadius: 3,
-                boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                animation: inView3 ? "slideInFromRight 1s ease-out forwards" : "none",
-                willChange: "transform, opacity",
-                "&:hover": { transform: "scale(1.02)" },
-                "@keyframes slideInFromRight": {
-                  "0%": { transform: "translateX(100%)", opacity: 0 },
-                  "100%": { transform: "translateX(0)", opacity: 1 },
-                },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Typography
-              variant="h5"
-              gutterBottom
-              sx={{
-                fontWeight: "bold",
-                animation: inView3 ? "fadeInUp 1s ease-out forwards 0.2s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              Personal Data You Provide
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                mb: 2,
-                animation: inView3 ? "fadeInUp 1s ease-out forwards 0.3s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              To maintain an account, you may need to provide email, phone number, 
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                mb: 2,
-                animation: inView3 ? "fadeInUp 1s ease-out forwards 0.4s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              or billing address. Profile preferences or customer support 
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                animation: inView3 ? "fadeInUp 1s ease-out forwards 0.5s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              interactions may also include personal data. This information 
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                animation: inView3 ? "fadeInUp 1s ease-out forwards 0.6s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              helps us deliver personalized services.
-            </Typography>
-          </Grid>
-        </Grid>
+        {/* Underline bar */}
+        <Box
+          sx={{
+            width: 64,
+            height: 4,
+            backgroundColor: "#C2185B",
+            mx: "auto",
+            borderRadius: 1,
+          }}
+        />
 
-        {/* Section 4: Automatically Collected Data */}
-        <Grid
-          container
-          spacing={6}
-          alignItems="center"
-          sx={{ mb: 10, flexDirection: { xs: "column-reverse", md: "row" } }}
-          ref={ref4}
+        <Typography paragraph sx={{ mt: 2 }}>
+          When you use or register on the{" "}
+          <span style={{ color: "#C2185B", fontWeight: "bold" }}>
+            Priotama.com
+          </span>{" "}
+          website, we only collect personal data that you provide of your own
+          accord. It is possible to browse our website without registering, but
+          you will need to register for the purpose of using certain features
+          and services that we offer. By registering on our website you will
+          provide and share your personal data with the public and with other
+          users. Something that is public can be seen by anyone. For example,
+          the personal data you provide in section{" "}
+          <span style={{ color: "#C2185B", fontWeight: "bold" }}>
+            «About Me»
+          </span>
+          , your name, gender, username, user ID, profile picture, photos and
+          videos. This personal data is made available to the public to help
+          connect you with other website users. Please be advised that public
+          personal data can show up when someone does a search on{" "}
+          <span style={{ color: "#C2185B", fontWeight: "bold" }}>
+            Priotama.com
+          </span>{" "}
+          or on another search engine. In some cases, people you share and
+          communicate with may download or copy the content you provided to them
+          or make it public. Use caution about the personal data you share with
+          others.
+        </Typography>
+
+        <Typography paragraph fontWeight="bold" style={{ color: "black" }}>
+          Personal data you provide us when you use our services or register for
+          an account with us:
+        </Typography>
+
+        <Typography component="ul" sx={{ pl: 3,}}>
+          <li>
+            Identifying personal data such as your gender, email and billing
+            address when you register for an account with us. It is your
+            voluntary decision whether to provide us with any such personal
+            information, but if you refuse to provide such information we may
+            not be able to register you to receive our services;
+          </li>
+          <li>
+            Other content that you generate, or that is connected to your
+            account (username, user ID, profile picture, photos and videos,
+            interests, favorites);
+          </li>
+          <li>Phone number if you use the relevant services;</li>
+          <li>
+            You may also provide us other personal data through your
+            participation in user-to-user communications, chats, or when you
+            otherwise communicate with us regarding our services;
+          </li>
+          <li>
+            Additional personal data we are required or authorized by applicable
+            laws to collect and process in order to authenticate or identify you
+            or to verify the personal data we have collected.
+          </li>
+        </Typography>
+
+        <Typography paragraph fontWeight="bold" style={{ color: "black" }}>
+          Personal data we collect automatically when you use our services or
+          register for an account with us:
+        </Typography>
+
+        <Typography paragraph>
+          We collect data about your interaction with our services and your
+          communications with us. This is personal data we receive from devices
+          (including mobile devices) you use when you access our services. This
+          personal data could include the following: device number, device ID or
+          unique identifier, device type, and unique device token, operating
+          system and applications used, application crash-data, IP address, User
+          agent, platform, Software Development Kit version, anonymous User ID,
+          time stamp Developer Key, application version, device identifiers such
+          as: IDFA (Identifier For Advertisers), Android ID (Android device),
+          referrer url (Playstore), Google Advertiser ID, device model,
+          manufacture, OS version, in-app events, and network status (WiFi/3G),
+          Login source, application use, age, gender, if profile is linked to
+          Facebook/Google, number of photos in profile, interests, notification
+          status, registration date, credits bought, date of last payment and
+          use of services;
+        </Typography>
+
+        <Typography paragraph>
+          Location personal data, including location personal data from your
+          mobile device including specific geographic locations through IP, GPS,
+          Bluetooth, or WiFi signals; computer and connection personal data such
+          as statistics on your page views, traffic to and from the websites,
+          referral URL, ad data, your IP address, your browsing history, and
+          your web log personal data;
+        </Typography>
+      </Box>
+
+      {/* Section 3 - Gradient Background (Termination of Use Example) */}
+      <Box
+        sx={{
+          width: "100%",
+          px: { xs: 2, sm: 6, md: 12 },
+          py: 2,
+          background: "linear-gradient(to right, #ffe4ec, #e1f5ff)",
+        }}
+      >
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          textAlign="center"
+          color="#262626"
         >
-          <Grid item xs={12} md={6}>
-            <Typography
-              variant="h5"
-              gutterBottom
-              sx={{
-                fontWeight: "bold",
-                animation: inView4 ? "fadeInUp 1s ease-out forwards 0.2s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              Automatically Collected Data
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                mb: 2,
-                animation: inView4 ? "fadeInUp 1s ease-out forwards 0.3s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              We collect device and usage data like IP address and browser type.
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                mb: 2,
-                animation: inView4 ? "fadeInUp 1s ease-out forwards 0.4s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              This includes operating system, crash data, and referral pages.
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                animation: inView4 ? "fadeInUp 1s ease-out forwards 0.5s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              Such data helps us enhance performance and security.
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Box
-              component="img"
-              src="/public/assets/image2.jpg"
-              alt="device data"
-              sx={{
-                 width: "500px",
-                height: "300px",
-                maxWidth: "80%",
-                objectFit: "cover",
-                borderRadius: 3,
-                boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                animation: inView4 ? "slideInFromRight 1s ease-out forwards" : "none",
-                willChange: "transform, opacity",
-                "&:hover": { transform: "scale(1.02)" },
-                "@keyframes slideInFromRight": {
-                  "0%": { transform: "translateX(100%)", opacity: 0 },
-                  "100%": { transform: "translateX(0)", opacity: 1 },
-                },
-              }}
-            />
-          </Grid>
-        </Grid>
+          Personal data we collect using cookies and similar technologies
+        </Typography>
 
-        {/* Section 5: Cookies and Similar Technologies */}
-        <Grid container spacing={6} alignItems="center" sx={{ mb: 10 }} ref={ref5}>
-          <Grid item xs={12} md={6}>
-            <Box
-              component="img"
-              src="/public/assets/image1.jpg"
-              alt="cookies"
-              sx={{
-                 width: "500px",
-                height: "300px",
-                maxWidth: "80%",
-                objectFit: "cover",
-                borderRadius: 3,
-                boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                animation: inView5 ? "slideInFromRight 1s ease-out forwards" : "none",
-                willChange: "transform, opacity",
-                "&:hover": { transform: "scale(1.02)" },
-                "@keyframes slideInFromRight": {
-                  "0%": { transform: "translateX(100%)", opacity: 0 },
-                  "100%": { transform: "translateX(0)", opacity: 1 },
-                },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Typography
-              variant="h5"
-              gutterBottom
-              sx={{
-                fontWeight: "bold",
-                animation: inView5 ? "fadeInUp 1s ease-out forwards 0.2s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              Cookies and Similar Technologies
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                mb: 2,
-                animation: inView5 ? "fadeInUp 1s ease-out forwards 0.3s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              <b>Priotama</b> uses cookies to analyze site traffic and user activity.
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                mb: 2,
-                animation: inView5 ? "fadeInUp 1s ease-out forwards 0.4s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              This includes data like visited pages and time spent on the site.
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                animation: inView5 ? "fadeInUp 1s ease-out forwards 0.5s" : "none",
-                willChange: "transform, opacity",
-                "@keyframes fadeInUp": {
-                  "0%": { transform: "translateY(20px)", opacity: 0 },
-                  "100%": { transform: "translateY(0)", opacity: 1 },
-                },
-              }}
-            >
-              Cookies enable a more personalized user experience.
-            </Typography>
-          </Grid>
-        </Grid>
-      </Container>
+        {/* Underline bar */}
+        <Box
+          sx={{
+            width: 64,
+            height: 4,
+            backgroundColor: "#C2185B",
+            mx: "auto",
+            mt: 1,
+            borderRadius: 1,
+          }}
+        />
+
+        <Typography
+          paragraph
+          sx={{ mt: 2, color: "gray", fontSize: 17, lineHeight: 1.6 }}
+        >
+          We use cookie technology on{" "}
+          <span style={{ color: "#C2185B", fontWeight: "bold" }}>
+            Priotama.com
+          </span>{" "}
+          as part of the statistical reporting on our website. It contains
+          personal data used by a website to personalize your experience (e.g.
+          rotating profiles on the{" "}
+          <span style={{ color: "#C2185B", fontWeight: "bold" }}>
+            Priotama.com
+          </span>{" "}
+          home page) and to gather statistical data, such as which pages are
+          visited, what is downloaded during your experience, the domain name
+          and country of the internet provider that you have come from and
+          addresses of those websites you have visited just before and after{" "}
+          <span style={{ color: "#C2185B", fontWeight: "bold" }}>
+            Priotama.com
+          </span>
+          . Nevertheless, we do not associate any of this personal data with you
+          as an individual. Only an aggregate measure is taken. Cookie personal
+          data allows us to follow your «click stream» activity (i.e., how
+          visitors navigate our website as they move from page to page). It is
+          important to note that cookies never capture your individual email
+          address or any of your private personal data.
+        </Typography>
+
+        <Typography
+          paragraph
+          sx={{ color: "gray", fontSize: 17, lineHeight: 1.6 }}
+        >
+          We also operate standard web server log files to assist in counting
+          visitor numbers and analyzing our website’s technical capability. This
+          personal data is used to establish how many people visit{" "}
+          <span style={{ color: "#C2185B", fontWeight: "bold" }}>
+            Priotama.com
+          </span>
+          , enable us to organize the pages for the best usability, make the
+          website suitable for your browser, and ensure that our pages are
+          working at their full potential. Although we collect personal data on
+          website traffic we do not record personal data on particular visitors
+          to our website, which means that no personal data about you as an
+          individual is retained or used. You are able to browse the website
+          without cookies by configuring your browser to reject all cookies, or
+          to alert you when a cookie is sent. Since each browser is different,
+          you should refer to the «Help» menu of your browser to learn how to
+          change your cookie preferences.
+        </Typography>
+      </Box>
+
+      {/* section 4 */}
+      <Box
+        sx={{
+          width: "100%",
+          px: { xs: 2, sm: 6, md: 12 },
+          background: "#fff",
+          py: 2,
+        }}
+      >
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          textAlign="center"
+          color="#262626"
+        >
+          Personal data we collect from other social media
+        </Typography>
+
+        {/* Underline bar */}
+        <Box
+          sx={{
+            width: 64,
+            height: 4,
+            backgroundColor: "#C2185B",
+            mx: "auto",
+            mt: 1,
+            borderRadius: 1,
+          }}
+        />
+
+        <Typography
+          paragraph
+          sx={{ mt: 2, color: "gray", fontSize: 17, lineHeight: 1.6 }}
+        >
+          We allow you to create your account with the respective social media
+          site (e.g. Facebook, Google or other). Those social media sites may
+          give us automatic access to certain personal data retained by them
+          about you. You control the personal data you share with us through the
+          respective social media you used for registering account with us
+          privacy settings on the applicable social media site and the
+          permissions you give us when you grant us access to the personal data
+          retained by the respective social media site about you. By associating
+          an account managed by a social media site with your account on our
+          Website and authorizing us to have access to your personal data, you
+          agree that we can collect, use and retain the personal data provided
+          by these social media sites in accordance with this Privacy Policy and
+          privacy policy of respective social media site in part of personal
+          data transfer to us.
+        </Typography>
+
+        <Typography
+          paragraph
+          sx={{ color: "gray", fontSize: 17, lineHeight: 1.6 }}
+        >
+          If you want to become a Free Member during your qualification process,
+          you will be asked to upload a document with your photo and a
+          verification video in order to qualify for a free membership and prove
+          your identity.
+        </Typography>
+      </Box>
+
+      {/* section 5 */}
+      <Box
+        sx={{
+          width: "100%",
+          px: { xs: 2, sm: 6, md: 12 },
+          background: "linear-gradient(to right, #ffe4ec, #e1f5ff)",
+          py: 2,
+        }}
+      >
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          textAlign="center"
+          color="#262626"
+        >
+          Third-party Cookies
+        </Typography>
+
+        {/* Underline bar */}
+        <Box
+          sx={{
+            width: 64,
+            height: 4,
+            backgroundColor: "#C2185B",
+            mx: "auto",
+            borderRadius: 1,
+          }}
+        />
+
+        <Typography
+          paragraph
+          sx={{ mt:2, color: "gray", fontSize: 17, lineHeight: 1.6 }}
+        >
+          We use analytics packages from trusted third parties in order to
+          constantly improve your browsing experience on our websites. Our
+          trusted partners help us serve advertising and analytics and may place
+          cookies on your device. You can find their privacy policies in the
+          list below. Please read their privacy policies to ensure that you are
+          comfortable with the manner in which they use cookies.
+        </Typography>
+      </Box>
+
+      {/* section 6 */}
+      <Box
+        sx={{
+          width: "100%",
+          px: { xs: 2, sm: 6, md: 12 },
+          background: "#fff",
+          py: 2,
+        }}
+      >
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          textAlign="center"
+          color="#262626"
+        >
+          Age Restriction
+        </Typography>
+
+        {/* Underline bar */}
+        <Box
+          sx={{
+            width: 64,
+            height: 4,
+            backgroundColor: "#C2185B",
+            mx: "auto",
+            borderRadius: 1,
+          }}
+        />
+
+        <Typography
+          paragraph
+          sx={{ mt: 2, color: "gray", fontSize: 17, lineHeight: 1.6 }}
+        >
+          <span style={{color:"#C2185B", fontWeight:"bold"}}>Children under 18 years of age </span> are not allowed to use our website and
+          our services are not targeted at children under the age of 18. In
+          accordance with the Children’s Online Privacy Protection Act, any
+          personal data we receive from users we believe to be aged 18 or under
+          will be removed from our database.
+        </Typography>
+      </Box>
+
+      {/* section 7 */}
+      <Box
+        sx={{
+          width: "100%",
+          px: { xs: 2, sm: 6, md: 12 },
+          background: "linear-gradient(to right, #ffe4ec, #e1f5ff)",
+          py: 2,
+        }}
+      >
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          textAlign="center"
+          color="#262626"
+        >
+          Privacy Policy Changes
+        </Typography>
+
+        {/* Underline bar */}
+        <Box
+          sx={{
+            width: 64,
+            height: 4,
+            backgroundColor: "#C2185B",
+            mx: "auto",
+            borderRadius: 1,
+          }}
+        />
+
+        <Typography
+          paragraph
+          sx={{ mt: 2, color: "gray", fontSize: 17, lineHeight: 1.6 }}
+        >
+          Because we are always looking for new and innovative ways to help you
+          build meaningful connections and strive on making sure explanations
+          about our data practices remain up-to-date, this policy may change
+          over time. We will notify you before any material changes take effect
+          so that you have time to review the changes. This policy was last
+          updated in November.
+        </Typography>
+      </Box>
     </Box>
   );
 }
