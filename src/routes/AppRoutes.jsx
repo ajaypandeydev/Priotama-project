@@ -14,6 +14,10 @@ import ForgetPassword from "../pages/user/Forget-Password";
 import Confirmation from "../pages/user/Confirmation";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import Nopage from "../pages/Nopage/Nopage";
+import ScrollToTop from "../components/ScrollTop";
+import PageFadeWrapper from "../components/PagefadeWrapper";
+import Heart from '../components/Heart';
 
 export default function AppRoutes() {
   // Check login state from sessionStorage
@@ -21,6 +25,9 @@ export default function AppRoutes() {
 
   return (
     <Router>
+      <ScrollToTop />
+      <PageFadeWrapper >
+        <Heart />
       <Routes>
         <Route element={<Layout />}>
           {/* Public Routes */}
@@ -28,7 +35,7 @@ export default function AppRoutes() {
           <Route path="/about" element={<About />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/company-policy" element={<CompanyPolicy />} />
-          <Route path="/forgot-password" element={<ForgetPassword />} />
+          <Route path="/forget-password" element={<ForgetPassword />} />
 
           {/* Auth Routes */}
           <Route
@@ -52,8 +59,9 @@ export default function AppRoutes() {
         </Route>
 
         {/* 404 Fallback */}
-        <Route path="*" element={<h1>404 - Page Not Found</h1>} />
+        <Route path="*" element={<Nopage/>} />
       </Routes>
+      </PageFadeWrapper>
     </Router>
   );
 }

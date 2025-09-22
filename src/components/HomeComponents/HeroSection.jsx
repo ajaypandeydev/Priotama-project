@@ -29,7 +29,7 @@ function HeroSection() {
             gutterBottom
             sx={{ fontWeight: "bold", color: "#F75270" }}
           >
-            Asian most Trusted &{" "}
+            Bangladesh most Trusted &{" "}
             <Box component="span" sx={{ color: "#262626" }}>
               Fastest Growing Dating website
             </Box>

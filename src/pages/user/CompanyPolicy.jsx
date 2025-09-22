@@ -550,8 +550,6 @@ function CompanyPolicy() {
                   borderRadius: 2,
                   boxShadow: 3,
                   transition: "0.3s",
-                  // minHeight: { xs: 200, sm: 210, md: 210 },
-                  // width: { xs: "100%", sm: "90%", md: "80%" },
                   mx: "auto",
                   backgroundColor: "#ffd6e5",
                   width: "200px",

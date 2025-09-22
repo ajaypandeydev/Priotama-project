@@ -118,9 +118,9 @@ export default function Navbar() {
         <Box sx={{ display: { xs: 'none', sm: 'flex' }, gap: { sm: 1, md: 1.5, lg: 2 }, alignItems: 'center', flexWrap: 'nowrap' }}>
           {navItems.map(item => (
             <Button key={item.label} component={Link} to={item.to} sx={{
-              color: '#fff',
+              color: '#252525',
               textTransform: 'none',
-              fontSize: { sm: '0.9rem', md: '1rem', lg: '1.1rem' },
+              fontSize: { sm: '0.9rem', md: '.5rem', lg: '1rem' },
               fontWeight: location.pathname === item.to ? 700 : 600,
               position: 'relative',
               letterSpacing: 0.5,
@@ -142,7 +142,7 @@ export default function Navbar() {
               backgroundImage: item.label === 'Register' ? 'linear-gradient(45deg, #FFCAD4 30%, #C2185B 90%)' : 'none',
               color: '#262626',
               textTransform: 'none',
-              fontSize: { sm: '0.9rem', md: '1rem', lg: '1.1rem' },
+              fontSize: { sm: '0.9rem', md: '.5rem', lg: '.8rem' },
               fontWeight: location.pathname === item.to ? 700 : 600,
               borderRadius: 40,
               px: { sm: 2, md: 3 },

@@ -5,6 +5,7 @@ import HeroSection from '../../components/HomeComponents/HeroSection';
 import UserProfileRecommendations from '../../components/HomeComponents/UserProfileRecommendations';
 import Banner from '../../components/HomeComponents/Banner';
 import AboutSection from '../../components/HomeComponents/AboutSection';
+import FAQ from '../../components/HomeComponents/FAQ';
 
 
 function Home() {
@@ -15,6 +16,7 @@ function Home() {
     <UserProfileRecommendations />
     <Banner/>
     <AboutSection />
+    <FAQ/>
     </>
   )
 }
