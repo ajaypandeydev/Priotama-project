@@ -12,7 +12,6 @@ function HeroSection() {
         display: "flex",
         alignItems: "center",
         px: {xs: 2, md: 6},
-        // background: "linear-gradient(to right, #ffe4ec, #e1f5ff)" // Imp**
       }}
     >
       <Grid
@@ -24,20 +23,28 @@ function HeroSection() {
         {/* Left Side Text */}
         <Grid size={{xs: 12, md: 6}}>
           <Typography
-            variant="h2"
-            component="h1"
+            variant="h3"
+            component="h2"
             gutterBottom
-            sx={{ fontWeight: "bold", color: "#F75270" }}
+            sx={{ 
+              fontWeight: "bold", 
+              color: "#F75270",
+              fontSize: {xs: '2.5rem', md: '3rem'},
+            }}
           >
-            Bangladesh most Trusted &{" "}
+            Bangladesh's{" "}
             <Box component="span" sx={{ color: "#262626" }}>
-              Fastest Growing Dating website
+              most Trusted & Fastest Growing Dating website
             </Box>
           </Typography>
 
           <Typography
             variant="body1"
-            sx={{ color: "#FAA4BD", mb: 3 }}
+            sx={{ 
+              color: "#FAA4BD", 
+              mb: 3,
+              fontSize: {xs: '.8rem', md: '1rem'},
+            }}
           >
             This is a sample hero section with gradient background, text on the
             left, and image on the right.
@@ -70,7 +77,7 @@ function HeroSection() {
             alt="Hero"
             sx={{
               maxWidth: "100%",
-              height: "500px",
+              height: '500px',
             }}
           />
         </Grid>

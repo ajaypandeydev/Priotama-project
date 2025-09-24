@@ -271,6 +271,9 @@
 
 // export default ForgetPassword;
 
+
+
+
 import React, { useState } from "react";
 import {
   Box,
@@ -283,53 +286,75 @@ import {
 } from "@mui/material";
 import { FaEnvelope, FaLock, FaKey } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function ForgetPassword() {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
-  const [step, setStep] = useState(1); // 1 = email, 2 = OTP, 3 = reset password
+  const [step, setStep] = useState(1); // 1 = Email, 2 = OTP + Password
   const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmNewPassword, setConfirmPassword] = useState("");
+  const [resetToken, setResetToken] = useState(""); // 🔑 backend se milega
 
-  const hardcodedOtp = "1234";
+  const navigate = useNavigate();
+
+  const API_BASE = "https://priotama-backend.onrender.com/api/auth";
 
   // Step 1: Send OTP
-  const handleSendOtp = () => {
+  const handleSendOtp = async () => {
     if (!email) {
       Swal.fire("❌ Error", "Please enter your email", "error");
       return;
     }
-    Swal.fire("📧 OTP Sent", "OTP has been sent to your email", "success");
-    setStep(2);
-  };
 
-  // Step 2: Verify OTP
-  const handleVerifyOtp = () => {
-    if (otp === hardcodedOtp) {
-      Swal.fire("✅ Verified", "OTP Verified Successfully", "success");
-      setStep(3);
-    } else {
-      Swal.fire("❌ Error", "Invalid OTP!", "error");
+    try {
+      const { data } = await axios.post(`${API_BASE}/forgot-password`, { email });
+
+      if (data.resetToken) {
+        setResetToken(data.resetToken);
+      }
+
+      Swal.fire("📧 OTP Sent", data.message || "OTP has been sent to your email", "success");
+      setStep(2); // Move to OTP + Password step
+    } catch (error) {
+      Swal.fire(
+        "❌ Error",
+        error.response?.data?.message || "Something went wrong",
+        "error"
+      );
     }
   };
 
-  // Step 3: Change Password
-  const handleChangePassword = () => {
-    if (!newPassword || !confirmPassword) {
-      Swal.fire("❌ Error", "Please fill in both fields", "error");
+  // Step 2: Reset Password (with OTP)
+  const handleResetPassword = async () => {
+    if (!otp || !newPassword || !confirmNewPassword) {
+      Swal.fire("❌ Error", "Please fill in all fields", "error");
       return;
     }
-    if (newPassword !== confirmPassword) {
+    if (newPassword !== confirmNewPassword) {
       Swal.fire("❌ Error", "Passwords do not match!", "error");
       return;
     }
-    Swal.fire("🎉 Success", "Your password has been changed successfully", "success");
-    // Reset form after success
-    setEmail("");
-    setOtp("");
-    setNewPassword("");
-    setConfirmPassword("");
-    setStep(1);
+
+    try {
+      const { data } = await axios.post(`${API_BASE}/reset-password`, {
+        resetToken,
+        email,
+        otp,
+        newPassword,
+        confirmNewPassword,
+      });
+
+      Swal.fire("🎉 Success", data.message || "Password reset successful", "success");
+      navigate("/login");
+    } catch (error) {
+      Swal.fire(
+        "❌ Error",
+        error.response?.data?.message || "Something went wrong",
+        "error"
+      );
+    }
   };
 
   return (
@@ -343,24 +368,11 @@ export default function ForgetPassword() {
         p: 2,
       }}
     >
-      <Card
-        sx={{
-          maxWidth: 420,
-          width: "100%",
-          borderRadius: 3,
-          boxShadow: 6,
-          p: 2,
-        }}
-      >
+      <Card sx={{ maxWidth: 420, width: "100%", borderRadius: 3, boxShadow: 6, p: 2 }}>
         <CardContent>
           <Typography
             variant="h5"
-            sx={{
-              mb: 3,
-              textAlign: "center",
-              fontWeight: 600,
-              color: "#F75270",
-            }}
+            sx={{ mb: 3, textAlign: "center", fontWeight: 600, color: "#F75270" }}
           >
             Forget Password
           </Typography>
@@ -398,7 +410,7 @@ export default function ForgetPassword() {
             </Box>
           )}
 
-          {/* Step 2 - OTP */}
+          {/* Step 2 - OTP + Password Reset */}
           {step === 2 && (
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               <TextField
@@ -415,25 +427,6 @@ export default function ForgetPassword() {
                 }}
                 required
               />
-              <Button
-                variant="contained"
-                onClick={handleVerifyOtp}
-                sx={{
-                  borderRadius: "20px",
-                  fontWeight: "bold",
-                  background:
-                    "linear-gradient(250deg,rgba(179,229,252,1) 0%, rgba(200,230,201,1) 100%)",
-                  color: "#262626",
-                }}
-              >
-                Verify OTP
-              </Button>
-            </Box>
-          )}
-
-          {/* Step 3 - Reset Password */}
-          {step === 3 && (
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               <TextField
                 label="New Password"
                 type="password"
@@ -451,7 +444,7 @@ export default function ForgetPassword() {
               <TextField
                 label="Confirm Password"
                 type="password"
-                value={confirmPassword}
+                value={confirmNewPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 InputProps={{
                   startAdornment: (
@@ -464,7 +457,7 @@ export default function ForgetPassword() {
               />
               <Button
                 variant="contained"
-                onClick={handleChangePassword}
+                onClick={handleResetPassword}
                 sx={{
                   borderRadius: "20px",
                   fontWeight: "bold",
@@ -473,7 +466,7 @@ export default function ForgetPassword() {
                   color: "#262626",
                 }}
               >
-                Change Password
+                Reset Password
               </Button>
             </Box>
           )}
@@ -482,4 +475,3 @@ export default function ForgetPassword() {
     </Box>
   );
 }
-

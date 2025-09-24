@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from "react";
 import { Box, Container, Grid, Typography, Card, CardContent } from "@mui/material";
 import { FaLock, FaUserCheck, FaUsers, FaGlobeAsia } from "react-icons/fa";
@@ -14,8 +13,7 @@ const AboutSection = () => {
 
   return (
     <Box
-      sx={{
-        // background: "linear-gradient(to right, #ffe4ec, #e1f5ff)",
+      sx={{ 
         py: 8,
         "@keyframes fadeInUp": {
           from: { opacity: 0, transform: "translateY(40px)" },

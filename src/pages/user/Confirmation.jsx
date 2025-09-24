@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+
 import {
   Box, Card, CardContent, Typography, TextField,
   Button, InputAdornment
@@ -24,7 +26,6 @@ function Confirmation() {
   const [otp, setOtp] = useState("");
   const [userData, setUserData] = useState(null);
 
-  const DUMMY_OTP = "123456"; // Dummy OTP for testing
 
   useEffect(() => {
     if (!location.state) {
@@ -34,17 +35,47 @@ function Confirmation() {
     }
   }, [location, navigate]);
 
-  const handleConfirm = (e) => {
-    e.preventDefault();
-    if (otp === DUMMY_OTP) {
-      // Save to localStorage after OTP success
-      localStorage.setItem("userProfile", JSON.stringify(userData));
-      Swal.fire("🎉 Registration successful", "success");
-      navigate("/login");
-    } else {
-      Swal.fire("❌Invalid OTP", "Please enter the correct OTP", "error");
-    }
-  };
+  // const handleConfirm = (e) => {
+  //   e.preventDefault();
+  //   if (otp === DUMMY_OTP) {
+  //     // Save to localStorage after OTP success
+  //     localStorage.setItem("userProfile", JSON.stringify(userData));
+  //     Swal.fire("🎉 Registration successful", "success");
+  //     navigate("/login");
+  //   } else {
+  //     Swal.fire("❌Invalid OTP", "Please enter the correct OTP", "error");
+  //   }
+  // };
+
+
+  const handleConfirm = async (e) => {
+  e.preventDefault();
+
+  if (!otp) {
+    Swal.fire({title: "Please enter OTP", icon: 'warning'});
+    return;
+  }
+
+  try {
+
+    const tempUserId = userData?.tempUserId || userData?._id;
+
+    const res = await axios.post("https://priotama-backend.onrender.com/api/auth/verify-otp", {
+      tempUserId,
+      otp,
+    });
+
+    Swal.fire("Registration successful", res.data.message || "OTP Verified", "success");
+
+    // save user in localStorage
+    localStorage.setItem("userProfile", JSON.stringify(res.data.user));
+
+
+    navigate("/login");
+  } catch (error) {
+    Swal.fire(" Invalid OTP", error.response?.data?.message || "Please enter the correct OTP", "error");
+  }
+};
 
   return (
     <ThemeProvider theme={theme}>

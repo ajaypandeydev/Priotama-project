@@ -10,87 +10,69 @@ import {
   Container,
   Chip,
   IconButton,
-  useTheme,
-  useMediaQuery
+  useTheme
 } from '@mui/material';
 import { FaHeart, FaUserFriends } from 'react-icons/fa';
 import { MdLocationOn } from 'react-icons/md';
+import Swal from 'sweetalert2';
+import { useNavigate } from "react-router-dom";
 
-// Dummy user data - replace this with API call later
 const getUserProfiles = () => {
   return [
-    {
-      id: 1,
-      name: "Emma Johnson",
-      age: 28,
-      location: "New York, NY",
-      profileImage: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face"
-    },
-    {
-      id: 2,
-      name: "Michael Chen",
-      age: 32,
-      location: "San Francisco, CA",
-      profileImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
-    },
-    {
-      id: 3,
-      name: "Sofia Rodriguez",
-      age: 26,
-      location: "Miami, FL",
-      profileImage: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=face"
-    },
-    {
-      id: 4,
-      name: "David Wilson",
-      age: 30,
-      location: "Austin, TX",
-      profileImage: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face"
-    },
-    {
-      id: 5,
-      name: "Isabella Taylor",
-      age: 27,
-      location: "Los Angeles, CA",
-      profileImage: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&h=400&fit=crop&crop=face"
-    },
-    {
-      id: 6,
-      name: "James Martinez",
-      age: 29,
-      location: "Chicago, IL",
-      profileImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
-    }
+    { id: 1, name: "Ayesha Rahman", age: 24, location: "Dhaka", profileImage: "../../../public/assets/Profile1.jpg" },
+    { id: 2, name: "Nusrat Jahan", age: 26, location: "Chattogram", profileImage: "../../../public/assets/Profile2.jpg" },
+    { id: 3, name: "Mithila Hossain", age: 22, location: "Khulna", profileImage: "../../../public/assets/Profile3.jpg" },
+    { id: 4, name: "Sabrina Akter", age: 24, location: "Rajshahi", profileImage: "../../../public/assets/Profile4.jpg" },
+    { id: 5, name: "Tahmina Islam", age: 22, location: "Barishal", profileImage: "../../../public/assets/Profile5.jpg" },
+    { id: 6, name: "Fariha Sultana", age: 21, location: "Sylhet", profileImage: "../../../public/assets/Profile6.jpg" },
+    { id: 7, name: "Rumana Akhter", age: 18, location: "Cumilla", profileImage: "../../../public/assets/Profile7.jpg" },
+    { id: 8, name: "Lamia Karim", age: 20, location: "Rangpur", profileImage: "../../../public/assets/Profile8.jpg" },
+    { id: 9, name: "Sadia Nasrin", age: 22, location: "Mymensingh", profileImage: "../../../public/assets/Profile9.jpg" },
+    { id: 10, name: "Parvin Begum", age: 19, location: "Gazipur", profileImage: "../../../public/assets/Profile10.jpg" },
+    { id: 11, name: "Shabnam Jahan", age: 20, location: "Narail", profileImage: "../../../public/assets/Profile11.jpg" },
+    { id: 12, name: "Naila Farzana", age: 19, location: "Bhola", profileImage: "../../../public/assets/Profile12.jpg" }
   ];
 };
 
 const ProfileCard = ({ profile }) => {
   const theme = useTheme();
+  const navigate = useNavigate();
 
+  function handleCardClick(){
+    Swal.fire({
+      title: 'Please Login or Register',
+      text: 'for view details and chat',
+      icon: 'info',
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#F75270'
+    }).then((result)=>{
+      if(result.isConfirmed){
+        navigate('/login')
+      }
+    })
+  }
   return (
     <Card
+      onClick={handleCardClick}
       sx={{
-        height: "100%",
+        width: 260, 
+        mx: "auto", 
         display: "flex",
         flexDirection: "column",
         borderRadius: 3,
         overflow: "hidden",
-        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+        transition: "all 0.3s ease-in-out",
         cursor: "pointer",
         position: "relative",
         "&:hover": {
-          transform: "translateY(-8px)",
-          boxShadow: "0 20px 40px #FAA4BD",
-          "& .profile-overlay": {
-            opacity: 1
-          },
-          "& .profile-image": {
-            transform: "scale(1.05)"
-          }
+          transform: "translateY(-6px)",
+          boxShadow: "0 12px 30px rgba(250, 164, 189, 0.5)",
+          "& .profile-overlay": { opacity: 1 },
+          "& .profile-image": { transform: "scale(1.05)" }
         }
       }}
     >
-      {/* Profile Image */}
+    
       <Box sx={{ position: "relative", overflow: "hidden" }}>
         <CardMedia
           component="img"
@@ -98,14 +80,14 @@ const ProfileCard = ({ profile }) => {
           alt={profile.name}
           className="profile-image"
           sx={{
-            width: '100%',
-             height: { xs: 180, sm: 220, md: 280 },
-            transition: "transform 0.3s ease",
-            objectFit: "cover"
+            width: '100%', 
+            height: 300,
+            objectFit: "cover",
+            transition: "transform 0.3s ease"
           }}
         />
 
-        {/* Overlay with Heart Icon */}
+       
         <Box
           className="profile-overlay"
           sx={{
@@ -114,8 +96,7 @@ const ProfileCard = ({ profile }) => {
             left: 0,
             right: 0,
             bottom: 0,
-            background:
-              "linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.6) 100%)",
+            background: "linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.6) 100%)",
             opacity: 0,
             transition: "opacity 0.3s ease",
             display: "flex",
@@ -157,13 +138,12 @@ const ProfileCard = ({ profile }) => {
       <CardContent
         sx={{
           flexGrow: 1,
-          p: { xs: 1.5, sm: 2, md: 2.5 },
+          p: 2,
           display: "flex",
           flexDirection: "column",
           gap: 1,
         }}
       >
-        {/* Name */}
         <Typography
           variant="h6"
           component="h3"
@@ -177,7 +157,6 @@ const ProfileCard = ({ profile }) => {
           {profile.name}
         </Typography>
 
-        {/* Location */}
         <Box
           sx={{
             display: "flex",
@@ -187,13 +166,7 @@ const ProfileCard = ({ profile }) => {
           }}
         >
           <MdLocationOn size={16} />
-          <Typography
-            variant="body2"
-            sx={{
-              fontSize: "0.875rem",
-              fontWeight: 500
-            }}
-          >
+          <Typography variant="body2" sx={{ fontSize: "0.875rem", fontWeight: 500 }}>
             {profile.location}
           </Typography>
         </Box>
@@ -202,16 +175,17 @@ const ProfileCard = ({ profile }) => {
   );
 };
 
+
 const UserProfileRecommendations = () => {
   const theme = useTheme();
   const [showAll, setShowAll] = useState(false);
 
   const profiles = getUserProfiles();
-  const visibleProfiles = showAll ? profiles : profiles.slice(0, 3);
+  const visibleProfiles = showAll ? profiles : profiles.slice(0, 4);
 
   return (
-    <Container maxWidth="xl" sx={{ py: 6 }}>
-      {/* Section Header */}
+    <Container maxWidth="lg" sx={{ py: 6 }}>
+      {/* Header */}
       <Box sx={{ textAlign: "center", mb: 5 }}>
         <Typography
           variant="h4"
@@ -245,13 +219,13 @@ const UserProfileRecommendations = () => {
       {/* Profile Cards Grid */}
       <Grid container spacing={3}>
         {visibleProfiles.map((profile) => (
-          <Grid item xs={6} sm={4} md={3} key={profile.id} sx={{display: 'flex'}}>
+          <Grid item xs={12} sm={6} md={3} key={profile.id} sx={{ display: 'flex' }}>
             <ProfileCard profile={profile} />
           </Grid>
         ))}
       </Grid>
 
- {/* Toggle Section */}
+    
       <Box
         sx={{
           display: "flex",

@@ -27,7 +27,7 @@ function FAQ() {
     {
       title: "Karm, Dubai",
       Description:
-        "I like your ethos and the back to basics approach to dating. No game players or cynics looking to hook up.",
+        "I like your ethos and the back to basics approach to dating. No cynics looking to hook up.",
     },
     {
       title: "Laisha, Bhutan",
@@ -174,9 +174,9 @@ Disadvantages:
                   </Typography>
                   <Typography
                     gutterBottom
-                    variant="h5"
+                    variant="h7"
                     component="div"
-                    sx={{ mt: 2 }}
+                    sx={{ mt: 2, fontWeight: '600', color: '#DC143C' }}
                   >
                     {card.title}
                   </Typography>

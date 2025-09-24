@@ -1,84 +1,8 @@
-// import React, { useContext } from "react";
-// import {
-//   Box,
-//   Card,
-//   CardContent,
-//   Typography,
-//   Avatar,
-//   Button,
-// } from "@mui/material";
-// import Swal from "sweetalert2";
-// import { useNavigate } from "react-router-dom";
-// import { AuthContext } from "../../context/AuthContext";
+// import React, { useContext, useState } from "react";
 
-// export default function Profile() {
-//   const navigate = useNavigate();
-//   const {logout} = useContext(AuthContext)
-//   const user = JSON.parse(localStorage.getItem("userProfile"));
-
-//   if (!user) {
-//     // navigate("/login");
-//     return <Typography>No user data found</Typography>;
-//   }
-
-//   const handleLogout = () => {
-//     localStorage.removeItem("userProfile");
-//     logout();
-//     Swal.fire("👋 Logged out", "You have been logged out.", "info").then(() =>
-//       navigate("/login")
-//     );
-//   };
-
-//   return (
-//     <>
-      
-//       <Box
-//         sx={{
-//           display: "flex",
-//           justifyContent: "center",
-//           alignItems: "center",
-//           minHeight: "80vh",
-//           p: 2,
-//         }}
-//       >
-//         <Card sx={{ maxWidth: 500, width: "100%", borderRadius: 3, boxShadow: 6 }}>
-//           <CardContent sx={{ textAlign: "center" }}>
-//             <Avatar
-//               src={user.image}
-//               alt={user.name}
-//               sx={{ width: 100, height: 100, margin: "0 auto", mb: 2 }}
-//             />
-//             <Typography variant="h5" fontWeight={600} gutterBottom>
-//               {user.name}
-//             </Typography>
-//             <Typography>Email: {user.email}</Typography>
-//             <Typography>Phone: {user.phone}</Typography>
-//             <Typography>Location: {user.location}</Typography>
-//             <Typography>Hobby: {user.hobby}</Typography>
-//             <Typography>Instagram: @{user.instagram}</Typography>
-
-//             <Button
-//               variant="contained"
-//               onClick={handleLogout}
-//               sx={{
-//                 mt: 3,
-//                 borderRadius: "20px",
-//                 background: "linear-gradient(250deg,rgba(179,229,252,1) 0%, rgba(200,230,201,1) 100%)",
-//                 color: "#262626",
-//                 fontWeight: "bold",
-//               }}
-//             >
-//               Logout
-//             </Button>
-//           </CardContent>
-//         </Card>
-//       </Box>
-//     </>
-//   );
-// }
-
-
-import React, { useContext, useState } from "react";
+//new
+import React, { useContext, useState, useEffect } from "react";
+import axios from "axios";
 import {
   Box,
   Card,
@@ -110,6 +34,33 @@ export default function Profile() {
 
   const [user, setUser] = useState(storedUser || {});
   const [isEditing, setIsEditing] = useState(false);
+  //new
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem("token"); // 👈 auth token use kro
+        const res = await axios.get(
+          "https://priotama-backend.onrender.com/api/users/profile",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        setUser(res.data);
+        localStorage.setItem("userProfile", JSON.stringify(res.data));
+      } catch (err) {
+        console.error("Error fetching profile:", err);
+        Swal.fire(
+          "⚠️ Error",
+          "Failed to fetch profile. Please login again.",
+          "error"
+        );
+        navigate("/login");
+      }
+    };
+
+    fetchProfile();
+  }, [navigate]);
 
   if (!storedUser) return <Typography>No user data found</Typography>;
 
@@ -122,12 +73,16 @@ export default function Profile() {
     );
   };
 
-  // Save
+  // Edir profile
   const handleSave = () => {
     if (user.imageFile) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        const updatedUser = { ...user, image: e.target.result, imageFile: null };
+        const updatedUser = {
+          ...user,
+          image: e.target.result,
+          imageFile: null,
+        };
         localStorage.setItem("userProfile", JSON.stringify(updatedUser));
         setUser(updatedUser);
         setIsEditing(false);
@@ -180,9 +135,35 @@ export default function Profile() {
             position: "relative",
           }}
         >
-          <Box sx={{ position: "absolute", left: "50%", bottom: -60, transform: "translateX(-50%)" }}>
+          <Box
+            sx={{
+              position: "absolute",
+              left: "50%",
+              bottom: -60,
+              transform: "translateX(-50%)",
+            }}
+          >
+            {/* <Avatar
+              // src={user.profilePic}
+               src={user.image || user.profilePic} 
+              alt={user.name}
+              sx={{
+                width: 120,
+                height: 120,
+                border: "5px solid white",
+                boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
+              }}
+            /> */}
             <Avatar
-              src={user.image}
+              src={
+                user.imageFile
+                  ? URL.createObjectURL(user.imageFile) // local preview after editing
+                  : user.image
+                  ? user.image
+                  : user.profilePic
+                  ? `https://priotama-backend.onrender.com/${user.profilePic}`
+                  : ""
+              }
               alt={user.name}
               sx={{
                 width: 120,
@@ -191,6 +172,7 @@ export default function Profile() {
                 boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
               }}
             />
+
             {isEditing && (
               <IconButton
                 component="label"
@@ -204,7 +186,12 @@ export default function Profile() {
                 }}
               >
                 <CameraAlt fontSize="small" />
-                <input type="file" hidden accept="image/*" onChange={handleImageChange} />
+                <input
+                  type="file"
+                  hidden
+                  accept="image/*"
+                  onChange={handleImageChange}
+                />
               </IconButton>
             )}
           </Box>
@@ -272,31 +259,67 @@ export default function Profile() {
             </Grid>
           ) : (
             <>
-              <Typography variant="h5" fontWeight={700} color="primary" gutterBottom>
+              <Typography
+                variant="h5"
+                fontWeight={700}
+                color="primary"
+                gutterBottom
+              >
                 {user.name}
               </Typography>
               {user.gender && (
-                <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+                <Typography
+                  variant="subtitle2"
+                  color="text.secondary"
+                  gutterBottom
+                >
                   {user.gender}
                 </Typography>
               )}
-              <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-                <LocationOnOutlined sx={{ fontSize: 16, verticalAlign: "middle" }} />{" "}
+              <Typography
+                variant="subtitle2"
+                color="text.secondary"
+                gutterBottom
+              >
+                <LocationOnOutlined
+                  sx={{ fontSize: 16, verticalAlign: "middle" }}
+                />{" "}
                 {user.location}
               </Typography>
 
               {/* Info Chips */}
-              <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 1 }}>
-                {user.hobby && <Chip icon={<Favorite />} label={user.hobby} color="secondary" />}
-                {user.instagram && <Chip label={`@${user.instagram}`} icon={<Instagram />} />}
-                {user.email && <Chip label={user.email} icon={<EmailOutlined />} />}
-                {user.phone && <Chip label={user.phone} icon={<PhoneOutlined />} />}
+              <Box
+                sx={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "center",
+                  gap: 1,
+                }}
+              >
+                {user.hobby && (
+                  <Chip
+                    icon={<Favorite />}
+                    label={user.hobby}
+                    color="secondary"
+                  />
+                )}
+                {user.instagram && (
+                  <Chip label={`@${user.instagram}`} icon={<Instagram />} />
+                )}
+                {user.email && (
+                  <Chip label={user.email} icon={<EmailOutlined />} />
+                )}
+                {user.phone && (
+                  <Chip label={user.phone} icon={<PhoneOutlined />} />
+                )}
               </Box>
             </>
           )}
 
           {/* Buttons */}
-          <Box sx={{ mt: 4, display: "flex", gap: 2, justifyContent: "center" }}>
+          <Box
+            sx={{ mt: 4, display: "flex", gap: 2, justifyContent: "center" }}
+          >
             {isEditing ? (
               <Button
                 variant="contained"

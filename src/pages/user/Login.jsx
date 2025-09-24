@@ -1,4 +1,6 @@
 import React, { useContext, useState } from "react";
+import axios from "axios";
+
 import {
   Box,
   Card,
@@ -29,23 +31,48 @@ export default function Login() {
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const storedUser = JSON.parse(localStorage.getItem("userProfile"));
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const storedUser = JSON.parse(localStorage.getItem("userProfile"));
 
-    if (
-      storedUser &&
-      storedUser.email === form.email &&
-      storedUser.password === form.password
-    ) {
-      login();
-      Swal.fire("✅ Success", "Login successful!", "success").then(() =>
-        navigate("/profile")
-      );
-    } else {
-      Swal.fire("❌ Error", "Invalid email or password!", "error");
-    }
-  };
+  //   if (
+  //     storedUser &&
+  //     storedUser.email === form.email &&
+  //     storedUser.password === form.password
+  //   ) {
+  //     login();
+  //     Swal.fire("✅ Success", "Login successful!", "success").then(() =>
+  //       navigate("/profile")
+  //     );
+  //   } else {
+  //     Swal.fire("❌ Error", "Invalid email or password!", "error");
+  //   }
+  // };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const res = await axios.post("https://priotama-backend.onrender.com/api/auth/login", {
+      email: form.email,
+      password: form.password,
+    });
+
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("userProfile", JSON.stringify(res.data.user));
+
+    login(); 
+
+    Swal.fire("✅ Success", "Login successful!", "success").then(() =>
+      navigate("/")
+    );
+  } catch (error) {
+    Swal.fire(
+      "❌ Error",
+      error.response?.data?.message || "Invalid email or password!",
+      "error"
+    );
+  }
+};
 
   return (
     <Box

@@ -80,7 +80,7 @@ const Footer = () => {
                 component={Link}
                 to={`/privacy-policy`}
                 >
-              Contact
+              Privacy Policy
             </Typography>
           </Grid>
 

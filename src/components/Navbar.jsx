@@ -47,7 +47,7 @@ export default function Navbar() {
           </IconButton>
         </Box>
 
-        <Typography variant="h6" sx={{ mt: 2, mb: 3, color: '#F75270', fontFamily: 'Dancing Script', fontSize: '1.5rem' }}>
+        <Typography variant="h6" sx={{ mt: 2, mb: 3, color: '#F75270', fontFamily: 'Poppins', fontSize: '1.5rem', fontWeight: 'bold' }}>
           Priotama Menu
         </Typography>
 
@@ -111,7 +111,7 @@ export default function Navbar() {
       <Toolbar sx={{ justifyContent: 'space-between', maxWidth: '1200px', mx: 'auto', width: '100%', flexWrap: 'nowrap', gap: { xs: 1, sm: 1.5, md: 2 } }}>
         {/* Logo */}
         <Box component={Link} to="/" sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-          <Box component="img" sx={{ height: { xs: '20px', sm: '40px', md: '50px' }, transition: 'transform 0.4s ease, box-shadow 0.4s ease' }} src="/logo.png" alt="Priotama Logo" />
+          <Box component="img" sx={{ height: { xs: '30px', sm: '40px', md: '50px' }, transition: 'transform 0.4s ease, box-shadow 0.4s ease' }} src="/logo.png" alt="Priotama Logo" />
         </Box>
 
         {/* Desktop Menu */}

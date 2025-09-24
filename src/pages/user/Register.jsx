@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+
 import {
   Box,
   Card,
@@ -23,9 +25,8 @@ import {
   FaLock,
   FaEye,
   FaEyeSlash,
-
 } from "react-icons/fa";
-import registerImg from '../../../public/assets/registerImg.png'; 
+import registerImg from "../../../public/assets/registerImg.png";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -55,28 +56,26 @@ export default function Register() {
     instagram: "",
     password: "",
     confirmPassword: "",
-    image: "", 
+    profilePic: "",
   });
+
+  const [imagePreview, setImagePreview] = useState(null);
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // optional: restrict file size/type here
-    const reader = new FileReader();
-    reader.onload = () => {
-      setFormData((prev) => ({ ...prev, image: reader.result }));
-    };
-    reader.readAsDataURL(file);
+    setFormData((prev) => ({ ...prev, profilePic: file }));
+    setImagePreview(URL.createObjectURL(file));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Simple validation
     const {
       name,
       age,
@@ -88,21 +87,73 @@ export default function Register() {
       instagram,
       password,
       confirmPassword,
+      profilePic,
     } = formData;
 
-    if (!name || !age || !gender || !email || !phone || !location || !hobby || !instagram || !password || !confirmPassword) {
-      Swal.fire(`⚠️Please fill all fields`);
+    if (
+      !name ||
+      !age ||
+      !profilePic ||
+      !gender ||
+      !email ||
+      !phone ||
+      !location ||
+      !hobby ||
+      !instagram ||
+      !password ||
+      !confirmPassword
+    ) {
+      Swal.fire("⚠️ Please fill all fields");
       return;
     }
 
     if (password !== confirmPassword) {
-      Swal.fire("❌Passwords do not match");
+      Swal.fire("❌ Passwords do not match");
       return;
     }
-    sessionStorage.setItem("pendingUser", JSON.stringify(formData));
-    Swal.fire("🎉 Registration Done", "Now you can Comfirm the OTP");
-    navigate("/confirmation", { state: formData });
-    
+
+    try {
+      // FormData for file upload
+      const data = new FormData();
+      data.append("name", name);
+      data.append("email", email);
+      data.append("phone", phone);
+      data.append("location", location);
+      data.append("gender", gender);
+      data.append("age", age);
+      // data.append(
+      //   "profilePic",
+      //   document.querySelector("input[type=file]").files[0] 
+      data.append("profilePic", profilePic);
+
+      
+      data.append("instaId", instagram);
+      data.append("hobby", hobby);
+      data.append("password", password);
+      data.append("confirmPassword", confirmPassword);
+
+      const res = await axios.post(
+        "https://priotama-backend.onrender.com/api/auth/register",
+        data,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+
+      Swal.fire(
+        "🎉 Registration Done",
+        res.data.message || "OTP Sent for verification"
+      );
+      sessionStorage.setItem("pendingUser", JSON.stringify(res.data));
+      // navigate("/confirmation", { state: res.data });
+      navigate("/confirmation", { state: { tempUserId: res.data.tempUserId } });
+    } catch (error) {
+      Swal.fire(
+        "❌ Error",
+        error.response?.data?.message || "Something went wrong",
+        "error"
+      );
+    }
   };
 
   return (
@@ -140,7 +191,7 @@ export default function Register() {
           >
             <Box sx={{ textAlign: "center" }}>
               <img
-                src={formData.image || registerImg}
+                src={imagePreview || registerImg}
                 alt="Register preview"
                 style={{
                   width: "100%",
@@ -151,14 +202,24 @@ export default function Register() {
                   transition: "transform 0.3s ease",
                 }}
               />
+
               <Box sx={{ mt: 2 }}>
                 <Button
                   variant="outlined"
                   component="label"
-                  sx={{ borderRadius: "12px", color: '#262626', border: '2px solid #F75270'}}
+                  sx={{
+                    borderRadius: "12px",
+                    color: "#262626",
+                    border: "2px solid #F75270",
+                  }}
                 >
                   Upload Photo
-                  <input hidden accept="image/*" type="file" onChange={handleFileChange} />
+                  <input
+                    hidden
+                    accept="image/*"
+                    type="file"
+                    onChange={handleFileChange}
+                  />
                 </Button>
               </Box>
             </Box>
@@ -169,7 +230,12 @@ export default function Register() {
             <Typography
               variant="h4"
               gutterBottom
-              sx={{ color: theme.palette.secondary.main, fontWeight: 700, textAlign: "center", mb: 2 }}
+              sx={{
+                color: theme.palette.secondary.main,
+                fontWeight: 700,
+                textAlign: "center",
+                mb: 2,
+              }}
             >
               Create Your Account
             </Typography>
@@ -223,7 +289,9 @@ export default function Register() {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <FaEnvelope style={{ marginRight: 8, color: "#F75270" }} />
+                      <FaEnvelope
+                        style={{ marginRight: 8, color: "#F75270" }}
+                      />
                     </InputAdornment>
                   ),
                 }}
@@ -238,7 +306,9 @@ export default function Register() {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <FaPhoneAlt style={{ marginRight: 8, color: "#F75270" }} />
+                      <FaPhoneAlt
+                        style={{ marginRight: 8, color: "#F75270" }}
+                      />
                     </InputAdornment>
                   ),
                 }}
@@ -259,7 +329,9 @@ export default function Register() {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <FaMapMarkerAlt style={{ marginRight: 8, color: "#F75270" }} />
+                      <FaMapMarkerAlt
+                        style={{ marginRight: 8, color: "#F75270" }}
+                      />
                     </InputAdornment>
                   ),
                 }}
@@ -287,7 +359,9 @@ export default function Register() {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <FaInstagram style={{ marginRight: 8, color: "#F75270" }} />
+                      <FaInstagram
+                        style={{ marginRight: 8, color: "#F75270" }}
+                      />
                     </InputAdornment>
                   ),
                 }}
@@ -307,8 +381,15 @@ export default function Register() {
                   ),
                   endAdornment: (
                     <InputAdornment position="end">
-                      <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                        {showPassword ? <FaEyeSlash color="#F75270" /> : <FaEye color="#8CCDED" />}
+                      <IconButton
+                        onClick={() => setShowPassword(!showPassword)}
+                        edge="end"
+                      >
+                        {showPassword ? (
+                          <FaEyeSlash color="#F75270" />
+                        ) : (
+                          <FaEye color="#8CCDED" />
+                        )}
                       </IconButton>
                     </InputAdornment>
                   ),
@@ -339,10 +420,14 @@ export default function Register() {
                 mt: 3,
                 borderRadius: "20px",
                 fontWeight: "bold",
-                background: "linear-gradient(250deg,rgba(179, 229, 252, 1) 0%, rgba(200, 230, 201, 1) 100%)",
+                background:
+                  "linear-gradient(250deg,rgba(179, 229, 252, 1) 0%, rgba(200, 230, 201, 1) 100%)",
                 color: "#262626",
                 transition: "all 0.3s ease",
-                "&:hover": { transform: "scale(1.05)", boxShadow: "0 6px 15px rgba(0,0,0,0.2)" },
+                "&:hover": {
+                  transform: "scale(1.05)",
+                  boxShadow: "0 6px 15px rgba(0,0,0,0.2)",
+                },
               }}
             >
               Register

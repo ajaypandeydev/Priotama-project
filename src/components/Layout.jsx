@@ -6,7 +6,7 @@ export default function Layout() {
   return (
     <div>
       <Navbar />
-      <main style={{ padding: "20px",}} className="page-container">
+      <main className="page-container">
         <Outlet /> {/* renders the child page */}
       </main>
       <Footer/>
